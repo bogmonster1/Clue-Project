@@ -1,1 +1,4 @@
-# should take data stored in data folder and make it available to be used by rest of programs
+class DataLoader:
+    def __init__(self):
+        pass
+
