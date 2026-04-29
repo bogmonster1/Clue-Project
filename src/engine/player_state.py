@@ -3,11 +3,12 @@ import random
 
 class Player:
 
-    def __init__(self):
+    def __init__(self, name):
         self.token = None
         self.held_cards = []
         self.location = None
         self.falsely_accused = False
+        self.name = name
 
     def give_card(self, card):
         self.held_cards.append(card)

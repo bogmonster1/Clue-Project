@@ -1,0 +1,37 @@
+{
+  "grid_size": {
+    "width": 24,
+    "height": 25
+  },
+
+  "starting_squares": {
+    "Miss Scarlett": [7, 24],
+    "Col Mustard": [0, 17],
+    "Mrs White": [9, 0],
+    "Rev Green": [14, 0],
+    "Mrs Peacock": [23, 6],
+    "Prof Plum": [23, 19]
+  },
+
+  "doors": [
+    {"room": "Lounge", "grid_coord": [6, 18]},
+    {"room": "Library", "grid_coord": [16, 16]},
+    {"room": "Library", "grid_coord": [20, 14]}
+  ],
+
+  "secret_passages": {
+    "Lounge": "Conservatory",
+    "Conservatory": "Lounge",
+    "Kitchen": "Study",
+    "Study": "Kitchen"
+  },
+
+  "pixel_mapping": {
+    "Lounge": {"x": 650, "y": 150},
+    "Library": {"x": 150, "y": 300},
+    "Study": {"x": 650, "y": 700},
+
+    "(7, 24)": {"x": 300, "y": 780},
+    "(0, 17)": {"x": 50, "y": 500}
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "persons": ["Miss Scarlett", "Col Mustard", "Mrs White", "Rev Green", "Mrs Peacock", "Prof Plum"],
+  "weapons": ["Dagger", "Candlestick", "Revolver", "Rope", "Lead Piping", "Spanner"],
+  "rooms": ["Hall", "Lounge", "Dining Room", "Kitchen", "Ball Room", "Conservatory", "Billiard Room", "Library", "Study"]
+}

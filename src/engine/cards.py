@@ -8,10 +8,11 @@ class Card:
 
 class Deck:
     def __init__(self, data):
-        self.person_cards = []
-        self.weapon_cards = []
-        self.room_cards = []
-        # made using the passed in data i.e. = [Card(name, "person") for person in (data: where person)]
+        # We read the dictionary keys ("persons", "weapons", "rooms")
+        # and create a Card object for every name in those lists.
+        self.person_cards = [Card(name, "Person") for name in data["persons"]]
+        self.weapon_cards = [Card(name, "Weapon") for name in data["weapons"]]
+        self.room_cards = [Card(name, "Room") for name in data["rooms"]]
 
     def create_murder_envelope(self):
         random.shuffle(self.person_cards)

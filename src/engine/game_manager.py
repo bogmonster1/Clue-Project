@@ -1,5 +1,5 @@
 import random
-from movement import MovementCheck
+from src.engine.movement import MovementCheck
 
 class GameManager:
     def __init__(self, players, deck, board):
@@ -22,9 +22,12 @@ class GameManager:
         dealable_deck = self.deck.create_dealable_deck()
         self.deal_cards(dealable_deck)
 
+    def assign_players(self):
+        pass
+
+
     def deal_cards(self, dealable_deck):
-        dealer_index = self.find_dealer()
-        receive_index = dealer_index
+        receive_index = 0
         player_count = len(self.players)
 
         while len(dealable_deck) != 0:
@@ -41,6 +44,10 @@ class GameManager:
 
         # Tradition dictates Miss Scarlett goes first.
         # TODO Add check to see who if anyone is Miss scarlett. if no one, just set to first player
+        for i in range(len(self.players)):
+            if self.players[i] == "Miss Scarlett":
+                self.current_player_index = i
+
         self.current_player_index = 0
 
         while not self.game_over:
