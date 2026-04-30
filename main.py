@@ -27,7 +27,7 @@ def main():
         items_filepath=root_dir/"data/game_items.json",
         board_filepath=root_dir/"data/board_layout.json"
     )
-    if os.path.exists("data/game_items.json"):
+    if os.path.exists(root_dir/"data/game_items.json"):
         print("Loading external JSON data...")
         game_items_dict = loader.load_game_items()
         board_layout_dict = loader.load_board_layout()
