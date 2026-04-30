@@ -14,14 +14,18 @@ from src.engine.game_manager import GameManager
 from src.engine.agent import AgentPlayer
 from src.utils.gui import GUI
 
+from pathlib import Path
+
+root_dir = Path(__file__).resolve().parent
+
 
 def main():
     print("--- Booting Watson Games Clue! Simulation ---")
 
     # --- 1. Data ---
     loader = DataLoader(
-        items_filepath="data/game_items.json",
-        board_filepath="data/board_layout.json"
+        items_filepath=root_dir/"data/game_items.json",
+        board_filepath=root_dir/"data/board_layout.json"
     )
     if os.path.exists("data/game_items.json"):
         print("Loading external JSON data...")
