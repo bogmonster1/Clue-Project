@@ -17,7 +17,7 @@ class GameManager:
     def setup(self):
         """Sets up the initial game state."""
         self.murder_envelope = self.deck.create_murder_envelope()
-        print(self.murder_envelope[0].name, self.murder_envelope[1].name, self.murder_envelope[2].name)
+        
         dealable_deck = self.deck.create_dealable_deck()
         self.deal_cards(dealable_deck)
 
