@@ -55,7 +55,7 @@ class GUI:
         canvas_frame = tk.Frame(self.main_frame, bg="#2b2b2b")
         canvas_frame.pack(side="left", padx=10, pady=10)
 
-        self.canvas = tk.Canvas(canvas_frame, width=600, height=600,
+        self.canvas = tk.Canvas(canvas_frame, width=600, height=625,
                                 bg="#d4a254", highlightthickness=2,
                                 highlightbackground="#8B6914")
         self.canvas.pack()
@@ -79,7 +79,7 @@ class GUI:
                                    justify="left", font=("Arial", 10))
         self.lbl_status.pack(pady=5)
 
-        # --- NEW: Tabbed Interface ---
+        # --- Tabbed Interface ---
         self.notebook = ttk.Notebook(self.panel)
         self.notebook.pack(fill="both", expand=True, pady=5)
 
@@ -148,6 +148,19 @@ class GUI:
 
         self.refresh_ui()
 
+    def stairs(self, x, y, to_room):
+        c = self.canvas
+        c.create_rectangle(x, y - 1, x - CELL / 2, y - CELL, fill="#A88213", outline="", tags="stairs")
+        c.create_rectangle(x + (CELL / 2), y - 1, x, y - CELL, fill="#917114", outline="", tags="stairs")
+        c.create_rectangle(x + CELL, y - 1, x + CELL / 2, y - CELL, fill="#634D0B", outline="", tags="stairs")
+        c.create_rectangle(x + (CELL * 1.5), y - 1, x + CELL, y - CELL, fill="#332805", outline="", tags="stairs")
+        self.canvas.create_text(
+            x+CELL*0.5, y - CELL,
+            text=f"Passage to {to_room}",
+            fill="#FFFFFF",
+            font=("Arial", 7)
+        )
+
     def log_event(self, message):
         """Appends text to the Game Log tab and auto-scrolls to the bottom."""
         self.log_text.config(state="normal")
@@ -174,11 +187,11 @@ class GUI:
     def _draw_abstract_board(self):
         c = self.canvas
         # Sleek dark background
-        c.create_rectangle(0, 0, 600, 600, fill="#2E3440", outline="")
+        c.create_rectangle(0, 0, 600, 625, fill="#2E3440", outline="")
 
         # Draw precise grid lines
         for i in range(0, 625, CELL):
-            c.create_line(i, 0, i, 600, fill="#4C566A", stipple="gray50")
+            c.create_line(i, 0, i, 625, fill="#4C566A", stipple="gray50")
             c.create_line(0, i, 600, i, fill="#4C566A", stipple="gray50")
 
         # Dynamically draw rooms based on JSON bounds
@@ -208,12 +221,22 @@ class GUI:
         c.create_text(300, 300, text="CLUE!", fill="#EBCB8B", font=("Arial", 24, "bold"))
 
         # DRAW AXIS LABELS LAST SO THEY RENDER ON TOP
+
+        # X-axis (Top edge): 24 columns, from 0 to 23
         for i in range(24):
-            # X-axis (Top edge)
             c.create_text(i * CELL + CELL // 2, 8, text=str(i), fill="#88C0D0", font=("Arial", 6))
-            # Y-axis (Left edge, skipping 0 to avoid overlapping the top corner)
-            if i > 0:
-                c.create_text(8, i * CELL + CELL // 2, text=str(i), fill="#88C0D0", font=("Arial", 6))
+
+        # Y-axis (Left edge): 25 rows, from 1 to 24 (skipping 0 to avoid top-left corner clutter)
+        for i in range(1, 25):
+            c.create_text(8, i * CELL + CELL // 2, text=str(i), fill="#88C0D0", font=("Arial", 6))
+
+
+        # MAKE STAIRS FOR PASSAGES
+        self.stairs(CELL * 2, CELL * 5, "Kitchen")
+        self.stairs(CELL * 21.5, CELL * 2, "Conservatory")
+        self.stairs(CELL * 2, CELL * 25, "Lounge")
+        self.stairs(CELL * 22, CELL * 25, "Study")
+
 
     def _draw_tokens(self):
         self.canvas.delete("token")
@@ -340,6 +363,18 @@ class GUI:
     # Human player actions
     # ------------------------------------------------------------------
 
+    def coords_highlight(self, valid_moves):
+        c = self.canvas
+        for i in range (len(valid_moves)):
+            c.create_rectangle(valid_moves[i][0]*CELL, valid_moves[i][1]*CELL, (valid_moves[i][0]+1)*CELL, (valid_moves[i][1]+1)*CELL, fill="#0AFA1E", outline="", tags="highlight")
+            self.canvas.create_text(
+                valid_moves[i][0]*CELL + (CELL/2), valid_moves[i][1]*CELL + (CELL/2),
+                text=str(valid_moves[i]),
+                fill="#2E3440",
+                font=("Arial", 5)
+            )
+
+
     def do_passage(self):
         dest = self.engine.handle_passage()
         if dest:
@@ -372,13 +407,18 @@ class GUI:
             self.combo_move['values'] = display_values
             self.combo_move.current(0)
             self.btn_move.config(state="normal")
+            self.combo_move.configure(values=sorted(display_values))
         else:
             self.lbl_status.config(text=f"Rolled {roll} — no valid moves.")
 
         self.btn_roll.config(state="disabled")
         self.btn_passage.pack_forget()
+        self.coords_highlight(valid_moves)
+
+
 
     def do_move(self):
+        self.canvas.delete("highlight")
         chosen = self.move_var.get()
         if not chosen:
             return

@@ -1,10 +1,10 @@
 {
-  "grid_size": { "width": 24, "height": 24 },
+  "grid_size": { "width": 24, "height": 25 },
   "starting_squares": {
     "Miss Scarlett": [16, 0],
     "Col Mustard": [23, 7],
-    "Mrs White": [17, 23],
-    "Rev Green": [7, 23],
+    "Mrs White": [17, 24],
+    "Rev Green": [7, 24],
     "Mrs Peacock": [0, 17],
     "Prof Plum": [0, 5]
   },
@@ -16,7 +16,7 @@
     {"room": "Billiard Room", "grid_coord": [6, 13]},
     {"room": "Dining Room", "grid_coord": [16, 12]},
     {"room": "Conservatory", "grid_coord": [5, 19]},
-    {"room": "Ball Room", "grid_coord": [11, 17]},
+    {"room": "Ball Room", "grid_coord": [11, 18]},
     {"room": "Kitchen", "grid_coord": [19, 18]}
   ],
   "room_bounds": [
@@ -26,9 +26,9 @@
     {"room": "Library", "x1": 0, "y1": 6, "x2": 6, "y2": 10},
     {"room": "Billiard Room", "x1": 0, "y1": 12, "x2": 6, "y2": 16},
     {"room": "Dining Room", "x1": 16, "y1": 9, "x2": 23, "y2": 15},
-    {"room": "Conservatory", "x1": 0, "y1": 19, "x2": 5, "y2": 23},
-    {"room": "Ball Room", "x1": 8, "y1": 17, "x2": 15, "y2": 23},
-    {"room": "Kitchen", "x1": 18, "y1": 18, "x2": 23, "y2": 23}
+    {"room": "Conservatory", "x1": 0, "y1": 19, "x2": 5, "y2": 24},
+    {"room": "Ball Room", "x1": 8, "y1": 18, "x2": 15, "y2": 24},
+    {"room": "Kitchen", "x1": 18, "y1": 18, "x2": 23, "y2": 24}
   ],
   "secret_passages": {
     "Lounge": "Conservatory",
